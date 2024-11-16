@@ -1,8 +1,5 @@
 # Lexi Translate
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/omaralalwi/lexi-translate.svg?style=flat-square)](https://packagist.org/packages/omaralalwi/lexi-translate)
-[![Total Downloads](https://img.shields.io/packagist/dt/omaralalwi/lexi-translate.svg?style=flat-square)](https://packagist.org/packages/omaralalwi/lexi-translate)
-
 <p align="center">
   <a href="https://omaralalwi.github.io/lexi-translate" target="_blank">
     <img src="https://raw.githubusercontent.com/omaralalwi/lexi-translate/master/public/images/lexi-translate-banner.jpg" alt="lexi translate banner">
