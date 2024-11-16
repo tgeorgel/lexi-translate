@@ -21,7 +21,7 @@ class RetrieveTranslationTest extends TestCase
             'text' => 'العنوان بالعربية',
         ]);
 
-        $titleInArabic = $post->translate('title', 'ar');
+        $titleInArabic = $post->transAttr('title', 'ar');
         $this->assertEquals('العنوان بالعربية', $titleInArabic);
     }
 }

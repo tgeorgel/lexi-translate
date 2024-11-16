@@ -15,16 +15,18 @@ Its lightweight design and flexibility make it an excellent choice for applicati
 - [Installation](#installation)
 - [Usage](#usage)
   - [Defining LexiTranslatable Models](#defining-lexitranslatable-models)
-  - [Create Translations](#Create-translations)
+  - [update or Create Translations](#update-or-Create-translations)
   - [Retrieving Translations](#retrieving-translations)
-  - [Eager Loading Translations](#eager-loading-translations)
   - [Cache Handling](#cache-handling)
+  - [More Examples](#more-examples)
+  - [Helper Functions](#helper-functions)
 - [Testing](#testing)
 - [Changelog](#changelog)
 - [Contributing](#contributing)
 - [Features](#features)
 - [Security](#security)
 - [License](#license)
+- [Helpful Packages](#helpful-open-source-packages)
 
 ## Installation
 
@@ -76,55 +78,64 @@ class Post extends Model
 }
 ```
 
-### Create Translations
+### Update or Create Translations
 
-Easily store translations for your model using the built-in relationship:
+You can use `setTranslations` method to create or update bulk translations for a model in a single step:
 
 ```php
 $post = Post::find(1);
+// must same following format
+$post->setTranslations([
+    'ar' => [
+        'name' => 'العنوان باللغة العربية',
+        'description' => 'الوصف باللغة العربية',
+    ],
 
-// Store a translation for the title in Arabic
-$post->translations()->create([
-    'locale' => 'ar',
-    'column' => 'title',
-    'text' => 'العنوان بالعربية',
-]);
-
-// Store a translation for the title in English
-$post->translations()->create([
-    'locale' => 'en',
-    'column' => 'title',
-    'text' => 'English Title',
+    'en' => [
+        'name' => 'English language Title',
+        'description' => 'description in English language',
+    ],
 ]);
 
 ```
+
+OR You can use `setTranslation` method to create or update one translation for a model in a single step:
+
+```php
+$post->setTranslation('title', 'en', 'English Language Title');
+$post->setTranslation('description', 'en', 'English Language description');
+
+$post->setTranslation('title', 'ar', 'عنوان باللغة العربية');
+$post->setTranslation('description', 'ar', 'وصف باللغة العربية');
+```
+
+**Note** you can add translated `name` and `description` for `Post` model even if `Post` model did not has (`name` and `description`) attributes .
 
 ### Retrieving Translations
 
-To retrieve translations, simply use the `translate` method:
+**Important Note:** To get better performance , **Do Not Depend on `translations`** relation directly when return translations, because it did not use cache Never.
+it did not use cache to keep it return `MorphMany` relation , it Return fresh translations from DB , So you can depend on it to create and update translations .
+
+**To retrieve translations, simply use `transAttr` method :**
+
+By default it return default app local, else you can specify local.
 
 ```php
-$title = $post->transAttr('title', 'ar');
-```
-Or
-```php
+// get title and description in default app local
+$title = $post->transAttr('title');
+$title = $post->transAttr('description');
+
+// or get title and description in specific local
 $titleInArabic = $post->translate('title', 'ar');
-$titleInEnglish = $post->translate('title', 'en');
+$titleInEnglish = $post->translate('title', 'ar');
 ```
 
-### Eager Loading Translations
+### More Examples
 
-You can eager load the translations relationship when querying your models to reduce the number of queries:
+you can find more detail examples in **[Examples File](examples.md)** .
 
-```php
-$posts = Post::with('translations')->get();
-
-// Access translations directly after eager loading
-foreach ($posts as $post) {
-    $titleInArabic = $post->translate('title', 'ar');
-    $titleInEnglish = $post->translate('title', 'en');
-}
-```
+### Helper Functions
+you can use `lexi_locales` to get supported locals as array, depend on `supported_locales` in config file.
 
 ### Cache Handling
 
@@ -155,12 +166,13 @@ If you add additional locales for translations, make sure to include them in the
 
 ## Features
 
-- **Dynamic Morph Relationships:** Manage translations across different models with ease, thanks to its dynamic morphable relationships.
+- **Dynamic Morph Relationships:** Manage translations across different models with ease, thanks to its dynamic morph able relationships.
 - **Automatic Caching:** Enjoy enhanced performance as translations are automatically cached and invalidated, ensuring quick access and updates.
 - **Fallback Mechanism:** Never worry about missing translations—Lexi Translate falls back to the default language if a translation is not available.
 - **Simple, Intuitive API:** A clean and consistent API for adding, retrieving, and managing translations.
 - **Eloquent-Friendly:** Seamlessly integrates with Laravel's Eloquent ORM, making it easy to work with translated data while maintaining the power of Laravel’s query builder.
 - **Feature Tests:** supported with Feature Tests .
+- **Customize table name:** in config file you can change `table_name` to any name as you want.
 
 ## Testing
 
@@ -195,7 +207,7 @@ The MIT License (MIT). Please see the [License File](LICENSE.md) for more inform
  ---
 
  
-## 📚 Helpful Open Source Packages
+## Helpful Open Source Packages
   
 - <a href="https://github.com/omaralalwi/Gpdf"><img src="https://raw.githubusercontent.com/omaralalwi/Gpdf/master/public/images/gpdf-banner-bg.jpg" width="26" height="26" style="border-radius:13px;" alt="laravel Taxify" /> Gpdf </a> Open Source HTML to PDF converter for PHP & Laravel Applications, supports Arabic content out-of-the-box and other languages..
 
