@@ -39,8 +39,6 @@ composer require omaralalwi/lexi-translate
 
 ### Publishing Configuration File
 
-Optionally, you can publish the package's configuration file to customize the cleanup schedule and other settings:
-
 ```bash
 php artisan vendor:publish --provider="Omaralalwi\LexiTranslate\Providers\LexiTranslateServiceProvider" --tag=config
 ```
