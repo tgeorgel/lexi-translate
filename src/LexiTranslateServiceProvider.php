@@ -12,21 +12,18 @@ class LexiTranslateServiceProvider extends ServiceProvider
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
         if ($this->app->runningInConsole()) {
-            // Publish config file
             $this->publishes([
                 __DIR__.'/../config/config.php' => config_path('lexi-translate.php'),
-            ], 'config');
+            ], 'lexi-translate');
 
-            // Publish migrations
             $this->publishes([
                 __DIR__.'/../database/migrations/' => database_path('migrations'),
-            ], 'migrations');
+            ], 'lexi-migrations');
         }
     }
 
     public function register()
     {
-        // Merge default configuration
         $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'lexi-translate');
 
         // Register the singleton

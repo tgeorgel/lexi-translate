@@ -37,7 +37,15 @@ composer require omaralalwi/lexi-translate
 ### Publishing Configuration File
 
 ```bash
-php artisan vendor:publish --provider="Omaralalwi\LexiTranslate\Providers\LexiTranslateServiceProvider" --tag=config
+php artisan vendor:publish --tag=lexi-translate
+```
+
+update table name (if you need, before migration) or any thing in config file if you need .
+
+### Publishing Migration File (optional)
+
+```bash
+php artisan vendor:publish --tag=lexi-migrations
 ```
 
 ### Migration for `translations` Table
