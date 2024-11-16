@@ -14,7 +14,7 @@ class TranslationFallbackTest extends TestCase
             'title' => 'Default Title',
         ]);
 
-        $titleInArabic = $post->translate('title', 'ar', 'Default Title');
+        $titleInArabic = $post->translate('title', 'ar');
         $this->assertEquals('Default Title', $titleInArabic);
     }
 }

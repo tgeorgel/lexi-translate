@@ -36,7 +36,7 @@
     "homepage": "https://github.com/omaralalwi/lexi-translate",
     "license": "MIT",
     "type": "library",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "authors": [
         {
             "name": "Omar alalwi",
@@ -62,7 +62,10 @@
     "autoload-dev": {
         "psr-4": {
             "Omaralalwi\\LexiTranslate\\Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "src/helpers.php"
+        ]
     },
     "scripts": {
         "test": "vendor/bin/phpunit",

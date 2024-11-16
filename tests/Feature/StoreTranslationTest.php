@@ -15,10 +15,22 @@ class StoreTranslationTest extends TestCase
             'description' => 'Original description',
         ]);
 
+        $arTitle = 'العنوان بالعربية';
+        $enTitle = ' English Title';
+
         $post->translations()->create([
             'locale' => 'ar',
             'column' => 'title',
-            'text' => 'العنوان بالعربية',
+            'text' => $arTitle,
+        ]);
+
+        $post->setTranslations([
+            'ar' => [
+                'name' => $arTitle,
+            ],
+            'en' => [
+                'name' => $enTitle,
+            ]
         ]);
 
         $this->assertDatabaseHas(config('lexi-translate.table_name'), [
@@ -26,7 +38,7 @@ class StoreTranslationTest extends TestCase
             'translatable_type' => Post::class,
             'locale' => 'ar',
             'column' => 'title',
-            'text' => 'العنوان بالعربية',
+            'text' => $arTitle,
         ]);
     }
 }
