@@ -22,7 +22,7 @@ trait LexiTranslatable
         return $this->morphMany(Translation::class, 'translatable');
     }
 
-    public function translate(string $column, ?string $locale = null): ?string
+    public function translate(string $column, ?string $locale = null)
     {
         $supportedLocales = Config::get('lexi-translate.supported_locales', []);
         $locale = $locale && in_array($locale, $supportedLocales) ? $locale : app()->getLocale();
@@ -43,7 +43,7 @@ trait LexiTranslatable
         return $translation?->text ?? $this->getAttribute($column);
     }
 
-    public function getTranslation($column, $locale): ?string
+    public function getTranslation($column, $locale)
     {
         return $this->translations()
             ->where('column', $column)
