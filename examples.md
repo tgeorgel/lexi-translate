@@ -64,7 +64,7 @@ class SetTranslationsController extends Controller
 ### in controller
 ```php
 use Illuminate\Http\Request;
-use App\Models\Post;
+use App\Models\Service;
 
 class TranslationsController extends Controller
 {
