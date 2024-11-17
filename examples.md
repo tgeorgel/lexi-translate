@@ -7,13 +7,13 @@ the following controller handle update or create translations from request
 ```php 
 namespace App\Http\Controllers;
 
-use App\Models\Post;
+use App\Models\Service;
 
 class SetTranslationsController extends Controller
 {
     public function handle()
     {
-        $service = Post::create([
+        $service = Service::create([
             'name' => 'original name',
             'description' => 'original description',
         ]);
@@ -71,8 +71,8 @@ class TranslationsController extends Controller
     public function store(Request $request, $id)
     {
         $translations = $request->input('translations');
-        $post = Post::findOrFail($id);
-        $post->setTranslations($translations);
+        $service = Service::findOrFail($id);
+        $service->setTranslations($translations);
 
         return redirect()->back()->with('success', 'Translations updated successfully!');
     }
