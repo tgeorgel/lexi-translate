@@ -20,6 +20,7 @@ Its lightweight design and flexibility make it an excellent choice for applicati
   - [Cache Handling](#cache-handling)
   - [More Examples](#more-examples)
   - [Helper Functions](#helper-functions)
+  - [Usage in Queries](#Usage-in-Queries)
 - [Testing](#testing)
 - [Alternative Solutions](#alternative-solutions)
 - [Changelog](#changelog)
@@ -136,7 +137,31 @@ $titleInEnglish = $post->transAttr('title', 'ar');
 you can find more detail examples in **[Examples File](examples.md)** .
 
 ### Helper Functions
+
 you can use `lexi_locales` to get supported locals as array, depend on `supported_locales` in config file.
+
+### Usage in Queries
+
+it is easy to use the `scopeSearchByTranslation` and `scopeFilterByTranslation` methods:
+
+#### search by Translated attribute
+
+```php
+$posts = Post::searchByTranslation('title', 'keyword')->get();
+```
+
+####  Specify Locale
+
+```php
+$posts = Post::searchByTranslation('title', 'keyword', 'ar')->get();
+```
+
+#### Filter Posts by Exact Translated Description
+
+```php
+$posts = Post::filterByTranslation('description', 'Specific Translated Text')->get();
+```
+
 
 ### Cache Handling
 

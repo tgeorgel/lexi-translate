@@ -8,10 +8,11 @@ use Omaralalwi\LexiTranslate\Models\Translation;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\Collection;
+use Omaralalwi\LexiTranslate\Models\Scones\TranslationsScopes;
 
 trait LexiTranslatable
 {
-    use HasCache;
+    use HasCache, TranslationsScopes;
 
     /**
      * Get the list of translatable fields for the model.
