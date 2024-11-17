@@ -126,8 +126,8 @@ $title = $post->transAttr('title');
 $title = $post->transAttr('description');
 
 // or get title and description in specific local
-$titleInArabic = $post->translate('title', 'ar');
-$titleInEnglish = $post->translate('title', 'ar');
+$titleInArabic = $post->transAttr('title', 'ar');
+$titleInEnglish = $post->transAttr('title', 'ar');
 ```
 
 ### More Examples
