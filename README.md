@@ -21,6 +21,7 @@ Its lightweight design and flexibility make it an excellent choice for applicati
   - [More Examples](#more-examples)
   - [Helper Functions](#helper-functions)
 - [Testing](#testing)
+- [Alternative Solutions](#alternative-solutions)
 - [Changelog](#changelog)
 - [Contributing](#contributing)
 - [Features](#features)
@@ -159,7 +160,7 @@ $post->clearTranslationsCache();
 ---
 **Note**:
 
-Please note that the `supported_locales` setting in the configuration file defines the locales that will be handled by the cache by default. 
+Please note that the `supported_locales` setting in the configuration file defines the locales that will be handled by the cache by default.
 If you add additional locales for translations, make sure to include them in the `supported_locales` list to ensure proper cache handling. Failing to do so may result in cache issues for locales not added to the list.
 
 ---
@@ -181,6 +182,22 @@ To run the tests for this package:
 ```bash
 composer test
 ```
+
+---
+
+## Alternative Solutions
+
+If Lexi Translate doesn't fully meet your application's needs, you may also consider these popular alternatives:
+
+- **[Spatie Laravel Translatable](https://github.com/spatie/laravel-translatable):**  
+  Stores translations in a JSON column within the main table. Best suited for smaller applications with simple multilingual requirements.
+
+- **[Astrotomic Laravel Translatable](https://github.com/Astrotomic/laravel-translatable):**  
+  Similar to Spatie's package but includes additional features like better locale handling. It’s an excellent choice for lightweight multilingual support.
+
+Both packages offer robust solutions for managing translations but rely on JSON-based storage. If you require scalable, relational storage with built-in caching and dynamic morph relationships, **Lexi Translate** is the better choice for large-scale or performance-critical applications.
+
+--- 
 
 ## Changelog
 
@@ -206,9 +223,9 @@ The MIT License (MIT). Please see the [License File](LICENSE.md) for more inform
 
  ---
 
- 
+
 ## Helpful Open Source Packages
-  
+
 - <a href="https://github.com/omaralalwi/Gpdf"><img src="https://raw.githubusercontent.com/omaralalwi/Gpdf/master/public/images/gpdf-banner-bg.jpg" width="26" height="26" style="border-radius:13px;" alt="laravel Taxify" /> Gpdf </a> Open Source HTML to PDF converter for PHP & Laravel Applications, supports Arabic content out-of-the-box and other languages..
 
 - <a href="https://github.com/omaralalwi/laravel-taxify"><img src="https://raw.githubusercontent.com/omaralalwi/laravel-taxify/master/public/images/taxify.jpg" width="26" height="26" style="border-radius:13px;" alt="laravel Taxify" /> **laravel Taxify** </a> Laravel Taxify provides a set of helper functions and classes to simplify tax (VAT) calculations within Laravel applications.
