@@ -197,6 +197,7 @@ If you add additional locales for translations, make sure to include them in the
 - **Fallback Mechanism:** Never worry about missing translations—Lexi Translate falls back to the default language if a translation is not available.
 - **Simple, Intuitive API:** A clean and consistent API for adding, retrieving, and managing translations.
 - **Eloquent-Friendly:** Seamlessly integrates with Laravel's Eloquent ORM, making it easy to work with translated data while maintaining the power of Laravel’s query builder.
+-  **Search and Filter:** Scopes for search and filters by translations .
 - **Feature Tests:** supported with Feature Tests .
 - **Customize table name:** in config file you can change `table_name` to any name as you want.
 
