@@ -17,10 +17,11 @@ Its lightweight design and flexibility make it an excellent choice for applicati
   - [Defining LexiTranslatable Models](#defining-lexitranslatable-models)
   - [update or Create Translations](#update-or-Create-translations)
   - [Retrieving Translations](#retrieving-translations)
-  - [Cache Handling](#cache-handling)
   - [More Examples](#more-examples)
   - [Helper Functions](#helper-functions)
   - [Usage in Queries](#Usage-in-Queries)
+  - [Cache Handling](#cache-handling)
+  - [Using middlewares](#using-middlewares-for-locale-management)
 - [Testing](#testing)
 - [Alternative Solutions](#alternative-solutions)
 - [Changelog](#changelog)
@@ -190,7 +191,9 @@ If you add additional locales for translations, make sure to include them in the
 
 ---
 
-### Using Middlewares for Locale Management (Optional)
+### Using Middlewares for Locale Management
+
+**(this is Optional)**
 
 **This section is optional , it is additional features to handle language switching for API Or Web , without need to install another package .**
 
