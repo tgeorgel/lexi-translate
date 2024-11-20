@@ -2,17 +2,15 @@
 
 namespace Omaralalwi\LexiTranslate\Traits;
 
-use Illuminate\Support\Facades\Config;
-use Omaralalwi\LexiTranslate\Enums\Language;
 use Omaralalwi\LexiTranslate\Models\Translation;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Database\Eloquent\Collection;
 use Omaralalwi\LexiTranslate\Models\Scones\TranslationsScopes;
+use Omaralalwi\LexiTranslate\Traits\HasSupportedLocales;
 
 trait LexiTranslatable
 {
-    use HasCache, TranslationsScopes;
+    use HasCache, TranslationsScopes, HasSupportedLocales;
 
     /**
      * Get the list of translatable fields for the model.
@@ -22,16 +20,6 @@ trait LexiTranslatable
     public function getTranslatableFields(): array
     {
         return $this->translatableFields ?? [];
-    }
-
-    /**
-     * Get the supported locales for translations.
-     *
-     * @return array
-     */
-    public function getSupportedLocales(): array
-    {
-        return Config::get('lexi-translate.supported_locales',);
     }
 
     /**
@@ -60,7 +48,7 @@ trait LexiTranslatable
      */
     public function translate(string $column, ?string $locale = null): string
     {
-        $locale = $locale && in_array($locale, $this->getSupportedLocales()) ? $locale : app()->getLocale();
+        $locale = $this->getValidatedLocale($locale);
         $originalText = '';
 
         $modelType = class_basename($this);

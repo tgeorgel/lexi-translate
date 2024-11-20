@@ -7,9 +7,12 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\Response;
+use Omaralalwi\LexiTranslate\Traits\HasSupportedLocales;
 
 class ApiLocalized
 {
+    use HasSupportedLocales;
+
     /**
      * Handle an incoming API request and set the application locale.
      *
@@ -21,7 +24,8 @@ class ApiLocalized
     {
         $defaultLocal = app()->getLocale();
         $headerFlag = Config::get('lexi-translate.api_locale_header_key');
-        $locale = $request->header($headerFlag, $defaultLocal);
+        $requestLocale = $request->header($headerFlag, $defaultLocal);
+        $locale = $this->getValidatedLocale($requestLocale);
 
         if(!$locale) {
             $locale = app()->getLocale();

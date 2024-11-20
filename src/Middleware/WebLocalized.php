@@ -8,9 +8,12 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\Response;
+use Omaralalwi\LexiTranslate\Traits\HasSupportedLocales;
 
 class WebLocalized
 {
+    use HasSupportedLocales;
+
     /**
      * Handle an incoming request to switch the app locale.
      *
@@ -20,7 +23,8 @@ class WebLocalized
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $locale = $request->route('locale') ?: $request->get('locale') ?: session('locale') ?: cookie('locale');
+        $requestLocale = $request->route('locale') ?: $request->get('locale') ?: session('locale') ?: cookie('locale');
+        $locale = $this->getValidatedLocale($requestLocale);
 
         if(!$locale) {
             $locale = app()->getLocale();
