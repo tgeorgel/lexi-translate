@@ -209,20 +209,15 @@ The `WebLocalized` middleware is designed to handle locale switching for web req
 
 #### Registering the Middleware
 
-To register the `WebLocalized` middleware:-
-* add it to your `app/Http/Kernel.php` file in laravel `v10` or earlier.
-* add it to `bootstrap/app.php` for laravel apps `v11`.
-
 ```php
-protected $routeMiddleware = [
-    // Other middlewares...
-    'localized.web' => \Omaralalwi\LexiTranslate\Middleware\WebLocalized::class,
-];
+// Other middlewares...
+'localized.web' => \Omaralalwi\LexiTranslate\Middleware\WebLocalized::class,
 ```
+[Register Middleware in Laravel](https://laravel.com/docs/11.x/middleware#registering-middleware)
 
 #### Applying the Middleware to Routes
 
-You can now apply the middleware to your routes , with adding `locale` prefix for all routes that want to apply multilingual for them .
+just add `locale` prefix for all routes that want to apply multilingual for them .
 
 ```php
 Route::prefix('{locale}')->middleware('localized.web')->group(function () {
@@ -238,21 +233,15 @@ Route::middleware(['localized.web'])->group(function () {
 });
 ```
 
-#### ** 2. ApiLocalized Middleware**
+#### **2. ApiLocalized Middleware**
 
 The `ApiLocalized` middleware is designed for API requests. It sets the application's locale based on the value of a custom header defined in your configuration file (`api_locale_header_key`). If the header is not provided, it defaults to the application's default locale.
 
 #### Registering the Middleware
 
-To register the `ApiLocalized` middleware:-
-* add it to your `app/Http/Kernel.php` file in laravel `v10` or earlier.
-* add it to `bootstrap/app.php` for laravel apps `v11`.
-
 ```php
-protected $routeMiddleware = [
-    // Other middlewares...
-    'localized.api' => \Omaralalwi\LexiTranslate\Middleware\ApiLocalized::class,
-];
+ // Other middlewares...
+'localized.api' => \Omaralalwi\LexiTranslate\Middleware\WebLocalized::class,
 ```
 
 #### Applying the Middleware to API Routes
