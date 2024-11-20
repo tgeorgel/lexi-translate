@@ -17,10 +17,11 @@ Its lightweight design and flexibility make it an excellent choice for applicati
   - [Defining LexiTranslatable Models](#defining-lexitranslatable-models)
   - [update or Create Translations](#update-or-Create-translations)
   - [Retrieving Translations](#retrieving-translations)
-  - [Cache Handling](#cache-handling)
   - [More Examples](#more-examples)
   - [Helper Functions](#helper-functions)
   - [Usage in Queries](#Usage-in-Queries)
+  - [Cache Handling](#cache-handling)
+  - [Using middlewares](#using-middlewares-for-locale-management)
 - [Testing](#testing)
 - [Alternative Solutions](#alternative-solutions)
 - [Changelog](#changelog)
@@ -190,6 +191,72 @@ If you add additional locales for translations, make sure to include them in the
 
 ---
 
+### Using Middlewares for Locale Management
+
+**(this is Optional)**
+
+**This section is optional , it is additional features to handle language switching for API Or Web , without need to install another package .**
+
+LexiTranslate provides built-in middlewares to handle locale switching seamlessly for both web and API requests. 
+These middlewares simplify the process of dynamically setting the application's locale based on user input or request headers.
+
+
+#### **1 . WebLocalized Middleware**
+
+The `WebLocalized` middleware is designed to handle locale switching for web requests. It determines the locale based on the following order of priority:
+- The `locale` route parameter.
+- The `locale` query string parameter.
+- The current session's locale.
+- The `locale` stored in cookies.
+- The application's default locale.
+
+#### Registering the Middleware
+
+```php
+// Other middlewares...
+'localized.web' => \Omaralalwi\LexiTranslate\Middleware\WebLocalized::class,
+```
+[Register Middleware in Laravel](https://laravel.com/docs/11.x/middleware#registering-middleware)
+
+#### Applying the Middleware to Routes
+
+just add `locale` prefix for all routes that want to apply multilingual for them .
+
+```php
+Route::prefix('{locale}')->middleware('localized.web')->group(function () {
+     // your routes
+});
+```
+OR
+```php
+Route::middleware(['localized.web'])->group(function () {
+    Route::get('/{locale}/dashboard', function () {
+        return view('dashboard');
+    });
+});
+```
+
+#### **2. ApiLocalized Middleware**
+
+The `ApiLocalized` middleware is designed for API requests. It sets the application's locale based on the value of a custom header defined in your configuration file (`api_locale_header_key`). If the header is not provided, it defaults to the application's default locale.
+
+#### Registering the Middleware
+
+```php
+ // Other middlewares...
+'localized.api' => \Omaralalwi\LexiTranslate\Middleware\WebLocalized::class,
+```
+
+#### Applying the Middleware to API Routes
+
+```php
+Route::middleware(['localized.api'])->group(function () {
+        // your routes
+});
+```
+
+---
+
 ## Features
 
 - **Dynamic Morph Relationships:** Manage translations across different models with ease, thanks to its dynamic morph able relationships.
@@ -198,6 +265,7 @@ If you add additional locales for translations, make sure to include them in the
 - **Simple, Intuitive API:** A clean and consistent API for adding, retrieving, and managing translations.
 - **Eloquent-Friendly:** Seamlessly integrates with Laravel's Eloquent ORM, making it easy to work with translated data while maintaining the power of Laravel’s query builder.
 -  **Search and Filter:** Scopes for search and filters by translations .
+- **Built-in middlewares** to handle locale switching seamlessly for both web and API requests.
 - **Feature Tests:** supported with Feature Tests .
 - **Customize table name:** in config file you can change `table_name` to any name as you want.
 
