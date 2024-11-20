@@ -6,11 +6,11 @@ use Omaralalwi\LexiTranslate\Models\Translation;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Cache;
 use Omaralalwi\LexiTranslate\Models\Scones\TranslationsScopes;
-use Omaralalwi\LexiTranslate\Traits\HasSupportedLocales;
+use Omaralalwi\LexiTranslate\Traits\HasLocale;
 
 trait LexiTranslatable
 {
-    use HasCache, TranslationsScopes, HasSupportedLocales;
+    use HasCache, TranslationsScopes, HasLocale;
 
     /**
      * Get the list of translatable fields for the model.

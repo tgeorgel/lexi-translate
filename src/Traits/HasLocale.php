@@ -5,7 +5,7 @@ namespace Omaralalwi\LexiTranslate\Traits;
 use Illuminate\Support\Facades\Config;
 use Omaralalwi\LexiTranslate\Enums\Language;
 
-trait HasSupportedLocales
+trait HasLocale
 {
     /**
      * Get the supported locales for translations.

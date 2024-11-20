@@ -8,11 +8,11 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\Response;
-use Omaralalwi\LexiTranslate\Traits\HasSupportedLocales;
+use Omaralalwi\LexiTranslate\Traits\HasLocale;
 
 class WebLocalized
 {
-    use HasSupportedLocales;
+    use HasLocale;
 
     /**
      * Handle an incoming request to switch the app locale.

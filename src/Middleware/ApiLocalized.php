@@ -7,11 +7,11 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Symfony\Component\HttpFoundation\Response;
-use Omaralalwi\LexiTranslate\Traits\HasSupportedLocales;
+use Omaralalwi\LexiTranslate\Traits\HasLocale;
 
 class ApiLocalized
 {
-    use HasSupportedLocales;
+    use HasLocale;
 
     /**
      * Handle an incoming API request and set the application locale.
