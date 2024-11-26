@@ -29,6 +29,7 @@ Its lightweight design and flexibility make it an excellent choice for applicati
 - [Features](#features)
 - [Security](#security)
 - [License](#license)
+- [Contributors](#contributors)
 - [Helpful Packages](#helpful-open-source-packages)
 
 ## Installation
@@ -315,8 +316,39 @@ If you discover any security-related issues, please email [omaralwi2010@gmail.co
 
 The MIT License (MIT). Please see the [License File](LICENSE.md) for more information.
 
- ---
+---
 
+## Contributors ✨
+
+Thanks to these wonderful people for contributing to this project! 💖
+
+<table>
+  <tr>
+    <td align="center">
+      <a href="https://github.com/omaralalwi">
+        <img src="https://avatars.githubusercontent.com/u/25439498?v=4" width="100px;" alt="Omar Al Alwi"/>
+        <br />
+        <sub><b>Omar Al Alwi</b></sub>
+      </a>
+      <br />
+      🏆 Owner
+    </td>
+    <!-- Contributors -->
+    <td align="center">
+      <a href="https://github.com/HamzaHassanM">
+        <img src="https://avatars.githubusercontent.com/u/62448602?v=4" width="100px;" alt="Contributor Name"/>
+        <br />
+        <sub><b>Hamza Hasan</b></sub>
+      </a>
+      <br />
+      💻 Contributor
+    </td>
+  </tr>
+</table>
+
+Want to contribute? Check out the [contributing guidelines](./CONTRIBUTING.md) and submit a pull request! 🚀
+
+---
 
 ## Helpful Open Source Packages
 
