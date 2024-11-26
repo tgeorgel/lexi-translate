@@ -5,7 +5,7 @@ namespace Omaralalwi\LexiTranslate\Traits;
 use Omaralalwi\LexiTranslate\Models\Translation;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Facades\Cache;
-use Omaralalwi\LexiTranslate\Models\Scones\TranslationsScopes;
+use Omaralalwi\LexiTranslate\Models\Scopes\TranslationsScopes;
 use Omaralalwi\LexiTranslate\Traits\HasLocale;
 
 trait LexiTranslatable
@@ -59,7 +59,7 @@ trait LexiTranslatable
             ? Cache::remember($cacheKey, now()->addHours(self::cacheTtl()), fn() => $this->getTranslation($column, $locale))
             : $this->getTranslation($column, $locale);
 
-        if(array_key_exists($column, $this->attributes)) {
+        if (array_key_exists($column, $this->attributes)) {
             $originalText = $this->attributes[$column];
         }
 
@@ -130,7 +130,7 @@ trait LexiTranslatable
      *
      * @param string $column The name of the column to translate.
      * @param string $locale The locale for the translation.
-     * @param string $text   The translation text.
+     * @param string $text The translation text.
      * @return void
      */
     public function setTranslation(string $column, string $locale, string $text): void
