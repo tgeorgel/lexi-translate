@@ -2,7 +2,7 @@
 
 <p align="center">
   <a href="https://omaralalwi.github.io/lexi-translate" target="_blank">
-    <img src="https://raw.githubusercontent.com/omaralalwi/lexi-translate/master/public/banners/lexi-translate-banner.jpg" alt="lexi translate banner" width="500">
+    <img src="https://raw.githubusercontent.com/omaralalwi/lexi-translate/master/public/banners/lexi-translate-banner.jpg" alt="lexi translate banner" width="600">
   </a>
 </p>
 
