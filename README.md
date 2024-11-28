@@ -6,7 +6,7 @@
   </a>
 </p>
 
-simplify managing translations for multilingual Eloquent models with power of **morph relationships** and **caching** .
+Easily manage translations for multilingual Eloquent models using morph relationships and caching.
 
 Its lightweight design and flexibility make it an excellent choice for applications needing multi-language support with minimal performance overhead.
 
