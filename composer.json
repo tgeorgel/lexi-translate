@@ -2,7 +2,6 @@
     "name": "omaralalwi/lexi-translate",
     "description": "Laravel translation package with morph relationships and caching.",
     "keywords": [
-        "omaralalwi",
         "lexi-translate",
         "laravel",
         "translation",
@@ -10,6 +9,8 @@
         "multilanguage",
         "multilingual",
         "languages",
+        "spatie",
+        "spatie translate",
         "many-languages",
         "many-locales",
         "multi-locales",
@@ -36,7 +37,7 @@
     "homepage": "https://github.com/omaralalwi/lexi-translate",
     "license": "MIT",
     "type": "library",
-    "version": "1.0.7",
+    "version": "1.0.8",
     "authors": [
         {
             "name": "Omar alalwi",
