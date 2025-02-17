@@ -82,7 +82,7 @@ return [
     | Example: ['en', 'ar', 'fr', 'es']
     |
     */
-    'Supported_Locales' => [
+    'supported_Locales' => [
         Language::EN->value,
         Language::AR->value,
         Language::ZH->value,

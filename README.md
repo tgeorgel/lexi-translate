@@ -140,7 +140,7 @@ you can find more detail examples in **[Examples File](examples.md)** .
 
 ### Helper Functions
 
-you can use `lexi_locales` to get supported locals as array, depend on `supported_locales` in config file.
+you can use `lexi_locales` to get supported locals as array, depend on `supported_Locales` in config file.
 
 ### Usage in Queries
 
@@ -187,8 +187,8 @@ $post->clearTranslationsCache();
 ---
 **Note**:
 
-Please note that the `supported_locales` setting in the configuration file defines the locales that will be handled by the cache by default.
-If you add additional locales for translations, make sure to include them in the `supported_locales` list to ensure proper cache handling. Failing to do so may result in cache issues for locales not added to the list.
+Please note that the `supported_Locales` setting in the configuration file defines the locales that will be handled by the cache by default.
+If you add additional locales for translations, make sure to include them in the `supported_Locales` list to ensure proper cache handling. Failing to do so may result in cache issues for locales not added to the list.
 
 ---
 
