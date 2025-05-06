@@ -37,7 +37,8 @@ trait LexiTranslatable
      *
      * @param string $column The column to translate.
      * @param string|null $locale The locale to translate to. Defaults to app locale.
-     * @return string The translated value or the original column value if no translation is found.
+     * @param bool $useFallbackLocale Whether to use the fallback locale if no translation is found.
+     * @return string|null The translated value or the original column value if no translation is found and useFallbackLocale is true, null otherwise.
      *
      *  Note:
      *  some cases we can add translations for attributes not in table
@@ -46,20 +47,20 @@ trait LexiTranslatable
      *  even if service model does not has name and description attributes .
      *
      */
-    public function translate(string $column, ?string $locale = null): string
+    public function translate(string $column, ?string $locale = null, bool $useFallbackLocale = true): ?string
     {
         $locale = $this->getValidatedLocale($locale);
-        $originalText = '';
+        $originalText = null;
 
         $modelType = class_basename($this);
         $cachePrefix = self::getCachePrefix();
         $cacheKey = "{$cachePrefix}_{$modelType}_{$this->id}_{$column}_{$locale}";
 
         $translation = self::isCacheEnabled()
-            ? Cache::remember($cacheKey, now()->addHours(self::cacheTtl()), fn() => $this->getTranslation($column, $locale))
+            ? Cache::remember($cacheKey, now()->addHours(self::cacheTtl()), fn () => $this->getTranslation($column, $locale))
             : $this->getTranslation($column, $locale);
 
-        if (array_key_exists($column, $this->attributes)) {
+        if ($useFallbackLocale && array_key_exists($column, $this->attributes)) {
             $originalText = $this->attributes[$column];
         }
 
