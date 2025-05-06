@@ -38,7 +38,7 @@ trait LexiTranslatable
      * @param string $column The column to translate.
      * @param string|null $locale The locale to translate to. Defaults to app locale.
      * @param bool $useFallbackLocale Whether to use the fallback locale if no translation is found.
-     * @return string|null The translated value or the original column value if no translation is found and useFallbackLocale is true, null otherwise.
+     * @return mixed The translated value (casted if a cast is defined for the column) or the original model attribute value (which is already casted by Eloquent) if no translation is found and useFallbackLocale is true, null otherwise.
      *
      *  Note:
      *  some cases we can add translations for attributes not in table
@@ -47,24 +47,32 @@ trait LexiTranslatable
      *  even if service model does not has name and description attributes .
      *
      */
-    public function translate(string $column, ?string $locale = null, bool $useFallbackLocale = true): ?string
+    public function translate(string $column, ?string $locale = null, bool $useFallbackLocale = true): mixed
     {
         $locale = $this->getValidatedLocale($locale);
-        $originalText = null;
 
         $modelType = class_basename($this);
         $cachePrefix = self::getCachePrefix();
         $cacheKey = "{$cachePrefix}_{$modelType}_{$this->id}_{$column}_{$locale}";
 
-        $translation = self::isCacheEnabled()
-            ? Cache::remember($cacheKey, now()->addHours(self::cacheTtl()), fn () => $this->getTranslation($column, $locale))
-            : $this->getTranslation($column, $locale);
+        $translatedRaw = self::isCacheEnabled()
+            ? Cache::remember($cacheKey, now()->addHours(self::cacheTtl()), fn () => $this->getTranslation($column, $locale)?->text)
+            : $this->getTranslation($column, $locale)?->text;
 
-        if ($useFallbackLocale && array_key_exists($column, $this->attributes)) {
-            $originalText = $this->attributes[$column];
+        if ($translatedRaw !== null) {
+            if (method_exists($this, 'hasCast') && $this->hasCast($column)) {
+                return $this->castAttribute($column, $translatedRaw);
+            }
+
+            return $translatedRaw;
         }
 
-        return $translation?->text ?? $originalText;
+        // No translation found; handle fallback.
+        if ($useFallbackLocale && array_key_exists($column, $this->attributes)) {
+            return $this->getAttribute($column);
+        }
+
+        return null;
     }
 
     /**
@@ -86,9 +94,9 @@ trait LexiTranslatable
      *
      * @param string $attribute The attribute name.
      * @param string|null $locale The locale for the translation. Defaults to app locale.
-     * @return string|null The translated value or null.
+     * @return mixed The translated value or null.
      */
-    public function transAttr(string $attribute, ?string $locale = null): ?string
+    public function transAttr(string $attribute, ?string $locale = null): mixed
     {
         return $this->translate($attribute, $locale);
     }
@@ -131,14 +139,23 @@ trait LexiTranslatable
      *
      * @param string $column The name of the column to translate.
      * @param string $locale The locale for the translation.
-     * @param string $text The translation text.
+     * @param mixed $value The translation text.
      * @return void
      */
-    public function setTranslation(string $column, string $locale, string $text): void
+    public function setTranslation(string $column, string $locale, mixed $value): void
     {
+        // Check if the model has a cast for this attribute and if the text is not a string.
+        if (method_exists($this, 'hasCast') && $this->hasCast($column) && !is_string($value)) {
+            $castType = $this->getCasts()[$column] ?? null;
+
+            if (in_array(strtolower($castType), ['array', 'json', 'object', 'collection']) && (is_array($value) || is_object($value))) {
+                $value = json_encode($value);
+            }
+        }
+
         $this->translations()->updateOrCreate(
             ['column' => $column, 'locale' => $locale],
-            ['text' => $text]
+            ['text' => $value]
         );
 
         if (self::isCacheEnabled()) {
