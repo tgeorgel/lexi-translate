@@ -59,17 +59,17 @@ trait LexiTranslatable
             ? Cache::remember($cacheKey, now()->addHours(self::cacheTtl()), fn () => $this->getTranslation($column, $locale)?->text)
             : $this->getTranslation($column, $locale)?->text;
 
-        if ($translatedRaw !== null) {
+        // No translation found; handle fallback.
+        if (blank($translatedRaw) && $useFallbackLocale && array_key_exists($column, $this->attributes)) {
+            $translatedRaw = $this->getRawOriginal($column);
+        }
+
+        if (filled($translatedRaw)) {
             if (method_exists($this, 'hasCast') && $this->hasCast($column)) {
                 return $this->castAttribute($column, $translatedRaw);
             }
 
             return $translatedRaw;
-        }
-
-        // No translation found; handle fallback.
-        if ($useFallbackLocale && array_key_exists($column, $this->attributes)) {
-            return $this->getAttribute($column);
         }
 
         return null;
